@@ -1,0 +1,37 @@
+<!doctype html>
+<html lang="pt-br">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Calculadora do cidadão</title>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <main class="secao_principal">
+      <header>
+        <h1 class="titulo">Calculadora do cidadão</h1>
+      </header>
+      <section>
+        <div>
+          <p>Numero de meses:</p>
+          <input type="number" max="108" class="input" id="iMeses" />
+        </div>
+        <div>
+          <p>Taxa:</p>
+          <input type="text" class="input" id="iTaxa" />
+        </div>
+        <div>
+          <p>Valor da parcela:</p>
+          <input type="text" class="input" id="iValorParcela" />
+        </div>
+        <div>
+          <p>Valor do saldo devedor:</p>
+          <input type="text" class="input" id="iSaldo" />
+        </div>
+      </section>
+      <button id="button">Calcular</button>
+      <button id="buttonLimpar">Limpar</button>
+    </main>
+  </body>
+  <script src="app.js"></script>
+</html>
