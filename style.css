@@ -97,10 +97,16 @@ section {
 button {
   background-color: var(--bg-primary);
   color: var(--text-muted);
-  border: solid 1px var(--border-color);
+  border: solid 2px var(--border-color);
   font-size: 16px;
   padding: 1rem 1.2rem;
   border-radius: 8px;
+}
+
+button:hover {
+  cursor: pointer;
+  border-color: var(--bg-tertiary);
+  scale: 1.05;
 }
 
 @media screen and (max-width: 450px) {
@@ -112,5 +118,17 @@ button {
 
   section {
     padding: 50px;
+  }
+
+  header h2 {
+    font-size: 20px;
+  }
+
+  header p {
+    font-size: 16px;
+  }
+
+  .titulo {
+    font-size: 20px;
   }
 }

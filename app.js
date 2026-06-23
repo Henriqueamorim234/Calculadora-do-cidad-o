@@ -6,6 +6,10 @@ const limpar = () => {
   document.getElementById("iTaxa").value = "";
   document.getElementById("iValorParcela").value = "";
   document.getElementById("iSaldo").value = "";
+
+  const paragrafo = document.getElementById("paragrafoTitulo");
+  paragrafo.style.color = "#6e6e6e";
+  paragrafo.innerHTML = "Coloque três valores e terá o terceiro como resposta";
 };
 
 const calculadora = () => {
@@ -13,35 +17,65 @@ const calculadora = () => {
   const Taxa = document.getElementById("iTaxa").value;
   const ValorParcelas = document.getElementById("iValorParcela").value;
   const Saldo = document.getElementById("iSaldo").value;
-  const taxaAjustada = Number(Taxa.replace(",", ".") / 100);
+  const Inputs = [];
 
-  if (ValorParcelas == "") {
-    document.getElementById("iValorParcela").value = calcularParcelas(
-      taxaAjustada,
-      paraNumero(Parcelas),
-      paraNumero(Saldo),
-    );
-  } else if (Saldo == "") {
-    document.getElementById("iSaldo").value = calcularSaldo(
-      taxaAjustada,
-      paraNumero(Parcelas),
-      paraNumero(ValorParcelas),
-    );
+  const paragrafoTitulo = document.getElementById("paragrafoTitulo");
+
+  Inputs.push(Parcelas, Taxa, ValorParcelas, Saldo);
+
+  const result = verificarInput(Inputs);
+
+  if (result > 1) {
+    paragrafoTitulo.style.color = "#f44747";
+    return;
+  } else if (result == 1) {
+    const taxaAjustada = Number(Taxa.replace(",", ".") / 100);
+
+    if (ValorParcelas == "") {
+      document.getElementById("iValorParcela").value = calcularParcelas(
+        taxaAjustada,
+        paraNumero(Parcelas),
+        paraNumero(Saldo),
+      );
+    } else if (Saldo == "") {
+      document.getElementById("iSaldo").value = calcularSaldo(
+        taxaAjustada,
+        paraNumero(Parcelas),
+        paraNumero(ValorParcelas),
+      );
+    } else if (Parcelas == "") {
+      document.getElementById("iMeses").value = calcularMeses(
+        taxaAjustada,
+        paraNumero(ValorParcelas),
+        paraNumero(Saldo),
+      );
+    } else if (Taxa == "") {
+      document.getElementById("iTaxa").value = calcularTaxa(
+        paraNumero(Parcelas),
+        paraNumero(ValorParcelas),
+        paraNumero(Saldo),
+      );
+    }
+
+    paragrafoTitulo.textContent = "Tudo certinho";
+    paragrafoTitulo.style.color = "#4ec9b0";
+  } else if (result == 0) {
+    paragrafoTitulo.style.color = "#f44747";
+    paragrafoTitulo.textContent = "Coloque somente 3 informações";
   }
-  if (Parcelas == "") {
-    document.getElementById("iMeses").value = calcularMeses(
-      taxaAjustada,
-      paraNumero(ValorParcelas),
-      paraNumero(Saldo),
-    );
-  }
-  if (Taxa == "") {
-    document.getElementById("iTaxa").value = calcularTaxa(
-      paraNumero(Parcelas),
-      paraNumero(ValorParcelas),
-      paraNumero(Saldo),
-    );
-  }
+};
+
+const verificarInput = (Inputs) => {
+  let inputsVazios = 0;
+  Inputs.forEach((input) => {
+    if (input == "") {
+      inputsVazios++;
+    }
+  });
+
+  console.log(inputsVazios);
+
+  return inputsVazios;
 };
 
 const paraNumero = (value) => {
@@ -55,14 +89,12 @@ const calcularParcelas = (taxa, parcelas, saldo) => {
 };
 
 const calcularSaldo = (taxa, parcelas, valorParcela) => {
-  console.log(valorParcela, taxa, parcelas);
   const valorSaldo = (valorParcela * (1 - (1 + taxa) ** -parcelas)) / taxa;
 
   return valorSaldo.toFixed(2);
 };
 
 const calcularMeses = (taxa, valorParcela, saldo) => {
-  console.log(saldo, taxa, valorParcela);
   const Meses = -(
     Math.log(1 - saldo * (taxa / valorParcela)) / Math.log(1 + taxa)
   );
@@ -95,8 +127,6 @@ const calcularTaxa = (parcelas, valorParcela, saldo) => {
       taxMin = meio;
     }
   }
-
-  console.log(taxMax, taxMin, meio, prestacaoCalculada);
 
   return (meio * 100).toFixed(2);
 };
