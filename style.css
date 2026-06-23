@@ -30,8 +30,31 @@ body {
   justify-content: center;
 }
 
+header {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+header h2,
+p {
+  margin: 0;
+  padding: 0;
+}
+
+header h2 {
+  font-size: 30px;
+  color: var(--text-secondary);
+}
+
+header p {
+  font-size: 25px;
+  color: var(--text-muted);
+}
+
 .titulo {
   color: var(--text-primary);
+  font-size: 40px;
 }
 
 .secao_principal {
@@ -41,6 +64,7 @@ body {
   border: solid 2px var(--border-color);
   border-radius: 22px;
   padding-bottom: 25px;
+  box-shadow: 5px 5px 4px var(--border-color);
 }
 
 .secao_principal div {
@@ -51,10 +75,14 @@ body {
 
 .secao_principal div p {
   color: var(--text-primary);
+  font-size: 16px;
 }
 
 section {
-  padding: 0 100px;
+  padding: 1rem 100px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
 }
 
 .input {
@@ -73,4 +101,16 @@ button {
   font-size: 16px;
   padding: 1rem 1.2rem;
   border-radius: 8px;
+}
+
+@media screen and (max-width: 450px) {
+  .secao_principal div {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+  }
+
+  section {
+    padding: 50px;
+  }
 }
