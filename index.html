@@ -15,7 +15,7 @@
           Coloque três valores e terá o terceiro como resposta
         </p>
       </header>
-      <section>
+      <form id="form" method="get" class="">
         <div>
           <p>Numero de meses:</p>
           <input type="number" max="108" class="input" id="iMeses" />
@@ -32,10 +32,12 @@
           <p>Valor do saldo devedor:</p>
           <input type="text" class="input" id="iSaldo" />
         </div>
-      </section>
-      <button id="button">Calcular</button>
-      <button id="buttonLimpar">Limpar</button>
+        <div class="form-actions">
+          <button id="button" type="submit">Calcular</button>
+          <button id="buttonLimpar" type="reset">Limpar</button>
+        </div>
+      </form>
     </main>
   </body>
-  <script src="app.js"></script>
+  <script type="module" src="scripts/app.js"></script>
 </html>
