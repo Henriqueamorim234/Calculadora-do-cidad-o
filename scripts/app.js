@@ -3,7 +3,7 @@ import {
   paraNumero,
   verificarInput,
   formatarResultado,
-  calcularParcelas,
+  calcularValorParcelas,
   calcularSaldo,
   calcularMeses,
   calcularTaxa,
@@ -39,51 +39,39 @@ const calculadora = () => {
   if (camposVazios === 1) {
     const taxaAjustada = Number(paraNumero(taxa) / 100);
 
-    if (valorParcelas === "") {
-      setInputValue(
-        "iValorParcela",
-        formatarResultado(
-          calcularParcelas(
-            taxaAjustada,
-            paraNumero(parcelas),
-            paraNumero(saldo),
-          ),
-        ),
-      );
-    } else if (saldo === "") {
-      setInputValue(
-        "iSaldo",
-        formatarResultado(
-          calcularSaldo(
-            taxaAjustada,
-            paraNumero(parcelas),
-            paraNumero(valorParcelas),
-          ),
-        ),
-      );
-    } else if (parcelas === "") {
-      setInputValue(
-        "iMeses",
-        formatarResultado(
-          calcularMeses(
-            taxaAjustada,
-            paraNumero(valorParcelas),
-            paraNumero(saldo),
-          ),
-        ),
-      );
-    } else if (taxa === "") {
-      setInputValue(
-        "iTaxa",
-        formatarResultado(
-          calcularTaxa(
-            paraNumero(parcelas),
-            paraNumero(valorParcelas),
-            paraNumero(saldo),
-          ),
-        ),
-      );
-    }
+    const listaInputs = [
+      {
+        nome: valorParcelas,
+        id: "iValorParcela",
+        funcao: calcularValorParcelas,
+        paraNumero: [parcelas, saldo],
+      },
+      {
+        nome: saldo,
+        id: "iSaldo",
+        funcao: calcularSaldo,
+        paraNumero: [parcelas, valorParcelas],
+      },
+        {
+          nome: parcelas,
+          id: "iMeses",
+          funcao: calcularMeses,
+          paraNumero: [parcelas, saldo],
+        },
+      {
+        nome: taxa,
+        id: "iTaxa",
+        funcao: calcularTaxa,
+        paraNumero: [parcelas, valorParcelas, saldo],
+      }
+    ]
+
+    listaInputs.forEach(input => {
+      if (input.nome === "") {
+        const numeros = input.paraNumero.map(numero => { return paraNumero(numero); });
+        setInputValue(input.id, formatarResultado(input.funcao(taxaAjustada, ...numeros)));
+        }
+    });
 
     setText("paragrafoTitulo", "Tudo certinho");
     setTextColor("paragrafoTitulo", "#4ec9b0");
