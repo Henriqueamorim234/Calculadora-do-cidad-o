@@ -7,7 +7,7 @@ export const verificarInput = (inputs) =>
 export const formatarResultado = (valor) =>
   Number(valor).toFixed(2).replace(".", ",");
 
-export const calcularParcelas = (taxa, parcelas, saldo) => {
+export const calcularValorParcelas = (taxa, parcelas, saldo) => {
   const valorParcela = (saldo * taxa) / (1 - (1 + taxa) ** -parcelas);
   return Number(valorParcela.toFixed(2));
 };
